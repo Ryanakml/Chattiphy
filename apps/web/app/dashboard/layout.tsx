@@ -1,11 +1,9 @@
 // import { OrganizationGuard } from "@/components/organization-guard";
 import { AppSidebar } from "@/components/app-sidebar";
-import { DynamicBreadcrumb } from "@/components/dynamic-breadcrumb";
-import { Separator } from "@workspace/ui/components/separator";
+import { DashboardHeader } from "@/components/dashboard/dashboard-header";
 import {
   SidebarInset,
   SidebarProvider,
-  SidebarTrigger,
 } from "@workspace/ui/components/sidebar";
 
 export default function DashboardLayout({
@@ -15,15 +13,10 @@ export default function DashboardLayout({
 }) {
   return (
     // <OrganizationGuard>
-    <SidebarProvider>
+    <SidebarProvider className="bg-[#09090b] text-zinc-100">
       <AppSidebar />
-      <SidebarInset className="h-svh overflow-hidden flex flex-col">
-        <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
-          <SidebarTrigger className="-ml-1" />
-          <Separator orientation="vertical" className="mr-2 h-4" />
-          <DynamicBreadcrumb />
-        </header>
-        {/* Disini magic-nya: children adalah konten page di tengah */}
+      <SidebarInset className="h-svh overflow-hidden border border-zinc-800/60 bg-[#09090b] md:rounded-[24px]">
+        <DashboardHeader />
         <div className="flex flex-1 flex-col overflow-hidden">{children}</div>
       </SidebarInset>
     </SidebarProvider>

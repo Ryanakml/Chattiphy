@@ -1,6 +1,8 @@
 "use client";
 
 import { ChevronRight, type LucideIcon } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import {
@@ -18,9 +20,16 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
 } from "@workspace/ui/components/sidebar";
-import Link from "next/link";
 
 const SIDEBAR_STORAGE_KEY = "sidebar_expanded_state";
+
+function isActivePath(pathname: string, url: string) {
+  if (url === "/dashboard/overview") {
+    return pathname === "/dashboard" || pathname === url;
+  }
+
+  return pathname === url || pathname.startsWith(`${url}/`);
+}
 
 /**
  * Load expanded menu items from localStorage
@@ -52,8 +61,10 @@ function setExpandedState(expandedItems: string[]): void {
 }
 
 export function NavMain({
+  title = "Platform",
   items,
 }: {
+  title?: string;
   items: {
     title: string;
     url: string;
@@ -69,6 +80,7 @@ export function NavMain({
   // Using state to handle hydration - initially empty, populated after mount
   const [expandedItems, setExpandedItems] = useState<string[]>([]);
   const [isMounted, setIsMounted] = useState(false);
+  const pathname = usePathname();
 
   // Load expanded state from localStorage on mount
   // This runs only on the client after hydration
@@ -102,14 +114,22 @@ export function NavMain({
 
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>Platform</SidebarGroupLabel>
+      <SidebarGroupLabel>{title}</SidebarGroupLabel>
       <SidebarMenu>
         {items.map((item) => {
+          const itemIsActive =
+            isActivePath(pathname, item.url) ||
+            item.items?.some((subItem) => isActivePath(pathname, subItem.url));
+
           // If item has no sub-items, render as a direct link
           if (!item.items || item.items.length === 0) {
             return (
               <SidebarMenuItem key={item.title}>
-                <SidebarMenuButton asChild tooltip={item.title}>
+                <SidebarMenuButton
+                  asChild
+                  tooltip={item.title}
+                  isActive={itemIsActive}
+                >
                   <Link href={item.url}>
                     {item.icon && <item.icon />}
                     <span>{item.title}</span>
@@ -123,7 +143,7 @@ export function NavMain({
           // Use persisted state if available, otherwise fall back to isActive
           const isOpen = isMounted
             ? expandedItems.includes(item.title)
-            : (item.isActive ?? false);
+            : (item.isActive ?? itemIsActive);
 
           // If item has sub-items, render as a collapsible dropdown
           return (
@@ -136,7 +156,7 @@ export function NavMain({
             >
               <SidebarMenuItem>
                 <CollapsibleTrigger asChild>
-                  <SidebarMenuButton tooltip={item.title}>
+                  <SidebarMenuButton tooltip={item.title} isActive={itemIsActive}>
                     {item.icon && <item.icon />}
                     <span>{item.title}</span>
                     <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
@@ -146,7 +166,10 @@ export function NavMain({
                   <SidebarMenuSub>
                     {item.items?.map((subItem) => (
                       <SidebarMenuSubItem key={subItem.title}>
-                        <SidebarMenuSubButton asChild>
+                        <SidebarMenuSubButton
+                          asChild
+                          isActive={isActivePath(pathname, subItem.url)}
+                        >
                           <Link href={subItem.url}>
                             <span>{subItem.title}</span>
                           </Link>
