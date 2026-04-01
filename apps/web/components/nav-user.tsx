@@ -9,7 +9,6 @@ import {
   CreditCard,
   LogOut,
   Sparkles,
-  Sun,
 } from "lucide-react";
 
 import {
@@ -33,26 +32,19 @@ import {
   useSidebar,
 } from "@workspace/ui/components/sidebar";
 
-/**
- * NavUser Component
- * Displays user profile and handles authentication actions.
- * Uses useUser to get current user, useClerk for signOut,
- * and useRouter for navigation to settings.
- */
 export function NavUser() {
   const { isMobile } = useSidebar();
   const router = useRouter();
   const { user, isLoaded } = useUser();
   const { signOut } = useClerk();
 
-  // Loading state
   if (!isLoaded) {
     return (
       <SidebarMenu>
         <SidebarMenuItem>
           <SidebarMenuButton size="lg" disabled>
             <Avatar className="h-8 w-8 rounded-lg">
-              <AvatarFallback className="rounded-lg">—</AvatarFallback>
+              <AvatarFallback className="rounded-lg">-</AvatarFallback>
             </Avatar>
             <div className="grid flex-1 text-left text-sm leading-tight">
               <span className="truncate font-medium">Loading...</span>
@@ -63,7 +55,6 @@ export function NavUser() {
     );
   }
 
-  // Not authenticated
   if (!user) {
     return null;
   }
@@ -78,12 +69,6 @@ export function NavUser() {
   const handleLogout = async () => {
     await signOut();
     router.push("/signin");
-  };
-
-  const handleProfileSettings = () => {
-    // Navigate to custom settings page (or log for now)
-    console.log("Open Settings");
-    router.push("/dashboard/settings/profile");
   };
 
   return (
@@ -137,21 +122,21 @@ export function NavUser() {
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem onClick={handleProfileSettings}>
+              <DropdownMenuItem
+                onClick={() => router.push("/dashboard/settings/profile")}
+              >
                 <BadgeCheck />
-                Account Settings
+                Account
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() => router.push("/dashboard/settings/billing")}
+              >
                 <CreditCard />
                 Billing
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <Bell />
                 Notifications
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Sun />
-                Theme
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />

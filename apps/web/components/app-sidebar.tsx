@@ -3,22 +3,20 @@
 import * as React from "react";
 import {
   Bot,
-  ChartLineIcon,
-  Frame,
-  GalleryVerticalEnd,
-  Map,
-  MessageCircle,
-  MessageCircleCodeIcon,
+  ChartLine,
   Instagram,
-  PieChart,
+  MessageCircle,
+  MessageCircleCode,
+  LifeBuoy,
+  Send,
   Settings2,
-  SquareTerminal,
   ShoppingCart,
+  SquareTerminal,
 } from "lucide-react";
-import { IconBrandTelegram } from "@tabler/icons-react";
 
 import { NavMain } from "@/components/nav-main";
-import { NavIntegrations } from "@/components/nav-projects";
+import { NavProjects } from "@/components/nav-projects";
+import { NavSecondary } from "@/components/nav-secondary";
 import { NavUser } from "@/components/nav-user";
 import { TeamSwitcher } from "@/components/team-switcher";
 import {
@@ -26,16 +24,15 @@ import {
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
-  SidebarRail,
 } from "@workspace/ui/components/sidebar";
 
-// This is sample data.
 const data = {
   navMain: [
     {
       title: "Overview",
       url: "/dashboard/overview",
       icon: SquareTerminal,
+      isActive: true,
     },
     {
       title: "Configurations",
@@ -45,7 +42,7 @@ const data = {
     {
       title: "Monitor",
       url: "#",
-      icon: ChartLineIcon,
+      icon: ChartLine,
       items: [
         {
           title: "Conversations",
@@ -60,7 +57,7 @@ const data = {
     {
       title: "Webchat",
       url: "#",
-      icon: MessageCircleCodeIcon,
+      icon: MessageCircleCode,
       items: [
         {
           title: "Bot Profile",
@@ -100,16 +97,28 @@ const data = {
       ],
     },
   ],
-  integrations: [
+  navSecondary: [
+    {
+      title: "Support",
+      url: "/dashboard/settings/general",
+      icon: LifeBuoy,
+    },
+    {
+      title: "Feedback",
+      url: "/dashboard/configurations",
+      icon: Send,
+    },
+  ],
+  projects: [
     {
       name: "WhatsApp",
       url: "/dashboard/integrations/whatsapp",
       icon: MessageCircle,
     },
     {
-      name: "Telegram",
-      url: "/dashboard/integrations/telegram",
-      icon: IconBrandTelegram,
+      name: "Instagram",
+      url: "/dashboard/integrations/instagram",
+      icon: Instagram,
     },
     {
       name: "Omnichannel",
@@ -121,18 +130,18 @@ const data = {
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar collapsible="icon" {...props}>
+    <Sidebar variant="inset" {...props}>
       <SidebarHeader>
         <TeamSwitcher />
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
-        <NavIntegrations integrations={data.integrations} />
+        <NavProjects projects={data.projects} />
+        <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
         <NavUser />
       </SidebarFooter>
-      <SidebarRail />
     </Sidebar>
   );
 }

@@ -17,14 +17,16 @@ export default function DashboardLayout({
     // <OrganizationGuard>
     <SidebarProvider>
       <AppSidebar />
-      <SidebarInset className="h-svh overflow-hidden flex flex-col">
+      <SidebarInset className="w-full min-w-0 flex flex-col">
         <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
           <SidebarTrigger className="-ml-1" />
           <Separator orientation="vertical" className="mr-2 h-4" />
           <DynamicBreadcrumb />
         </header>
         {/* Disini magic-nya: children adalah konten page di tengah */}
-        <div className="flex flex-1 flex-col overflow-hidden">{children}</div>
+        <div className="flex flex-1 flex-col min-h-0 min-w-0 overflow-y-auto overflow-x-hidden">
+          {children}
+        </div>
       </SidebarInset>
     </SidebarProvider>
     // </OrganizationGuard>

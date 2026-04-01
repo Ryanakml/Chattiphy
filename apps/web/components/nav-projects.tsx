@@ -2,8 +2,8 @@
 
 import {
   Folder,
-  Forward,
   MoreHorizontal,
+  ExternalLink,
   Trash2,
   type LucideIcon,
 } from "lucide-react";
@@ -24,11 +24,12 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@workspace/ui/components/sidebar";
+import Link from "next/link";
 
-export function NavIntegrations({
-  integrations,
+export function NavProjects({
+  projects,
 }: {
-  integrations: {
+  projects: {
     name: string;
     url: string;
     icon: LucideIcon;
@@ -40,13 +41,13 @@ export function NavIntegrations({
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
       <SidebarGroupLabel>Integrations</SidebarGroupLabel>
       <SidebarMenu>
-        {integrations.map((item) => (
+        {projects.map((item) => (
           <SidebarMenuItem key={item.name}>
             <SidebarMenuButton asChild>
-              <a href={item.url}>
+              <Link href={item.url}>
                 <item.icon />
                 <span>{item.name}</span>
-              </a>
+              </Link>
             </SidebarMenuButton>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -56,7 +57,7 @@ export function NavIntegrations({
                 </SidebarMenuAction>
               </DropdownMenuTrigger>
               <DropdownMenuContent
-                className="w-48 rounded-lg"
+                className="w-48"
                 side={isMobile ? "bottom" : "right"}
                 align={isMobile ? "end" : "start"}
               >
@@ -65,21 +66,21 @@ export function NavIntegrations({
                   <span>View Integration</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <Forward className="text-muted-foreground" />
-                  <span>Share Integration</span>
+                  <ExternalLink className="text-muted-foreground" />
+                  <span>Open Integration</span>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
                   <Trash2 className="text-muted-foreground" />
-                  <span>Delete Integration</span>
+                  <span>Remove Shortcut</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </SidebarMenuItem>
         ))}
         <SidebarMenuItem>
-          <SidebarMenuButton className="text-sidebar-foreground/70">
-            <MoreHorizontal className="text-sidebar-foreground/70" />
+          <SidebarMenuButton>
+            <MoreHorizontal />
             <span>More</span>
           </SidebarMenuButton>
         </SidebarMenuItem>
