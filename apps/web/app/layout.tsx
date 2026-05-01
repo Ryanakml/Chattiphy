@@ -1,4 +1,5 @@
 import "@workspace/ui/globals.css";
+import "@/app/globals.css";
 import type { Metadata } from "next";
 import { Providers } from "@/components/providers";
 
