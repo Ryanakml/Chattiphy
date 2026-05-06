@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { useSelectedLayoutSegment } from "next/navigation";
 
@@ -22,8 +23,16 @@ export function MainNav({ items, children }: MainNavProps) {
   return (
     <div className="flex gap-6 md:gap-10">
       <Link href="/" className="hidden items-center space-x-2 md:flex">
-        <Icons.bot />
-        <span className="hidden font-bold sm:inline-block">{siteConfig.name}</span>
+        <Image
+          src="/favicon.svg"
+          width={24}
+          height={24}
+          alt={`${siteConfig.name} logo`}
+          className="h-6 w-6"
+        />
+        <span className="hidden font-bold sm:inline-block">
+          {siteConfig.name}
+        </span>
       </Link>
       {items?.length ? (
         <nav className="hidden gap-6 md:flex">
@@ -48,10 +57,22 @@ export function MainNav({ items, children }: MainNavProps) {
         className="flex items-center space-x-2 md:hidden"
         onClick={() => setShowMobileMenu(!showMobileMenu)}
       >
-        {showMobileMenu ? <Icons.close /> : <Icons.bot />}
+        {showMobileMenu ? (
+          <Icons.close />
+        ) : (
+          <Image
+            src="/favicon.svg"
+            width={20}
+            height={20}
+            alt={`${siteConfig.name} logo`}
+            className="h-5 w-5"
+          />
+        )}
         <span className="font-bold">Menu</span>
       </button>
-      {showMobileMenu && items && <MobileNav items={items}>{children}</MobileNav>}
+      {showMobileMenu && items && (
+        <MobileNav items={items}>{children}</MobileNav>
+      )}
     </div>
   );
 }

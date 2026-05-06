@@ -1,7 +1,7 @@
 import * as React from "react";
+import Image from "next/image";
 import Link from "next/link";
 
-import { Icons } from "@/components/landing/icons";
 import { siteConfig } from "@/config/site";
 
 interface SiteFooterProps extends React.HTMLAttributes<HTMLElement> {
@@ -66,7 +66,14 @@ export function SiteFooter({ simpleFooter }: SiteFooterProps) {
         )}
         <div className="mt-8 flex items-center justify-between border-t border-gray-200 pt-4">
           <div className="flex flex-row text-sm text-gray-500">
-            <Icons.bot className="mr-2" /> © 2026 {siteConfig.name}. All rights reserved.
+            <Image
+              src="/favicon.svg"
+              width={16}
+              height={16}
+              alt={`${siteConfig.name} logo`}
+              className="mr-2 inline-block h-4 w-4"
+            />
+            © 2026 {siteConfig.name}. All rights reserved.
           </div>
           <div className="flex items-center space-x-4" />
         </div>
