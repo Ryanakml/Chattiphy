@@ -1,9 +1,9 @@
 import * as React from "react";
+import Image from "next/image";
 import Link from "next/link";
 
 import { siteConfig } from "@/config/site";
 import { cn } from "@workspace/ui/lib/utils";
-import { Icons } from "@/components/landing/icons";
 import { useLockBody } from "@/components/landing/use-lock-body";
 import type { MainNavItem } from "@/config/marketing";
 
@@ -23,7 +23,13 @@ export function MobileNav({ items, children }: MobileNavProps) {
     >
       <div className="relative z-20 grid gap-6 rounded-md bg-popover p-4 text-popover-foreground shadow-md">
         <Link href="/" className="flex items-center space-x-2">
-          <Icons.bot />
+          <Image
+            src="/favicon.svg"
+            width={24}
+            height={24}
+            alt={`${siteConfig.name} logo`}
+            className="h-6 w-6"
+          />
           <span className="font-bold">{siteConfig.name}</span>
         </Link>
         <nav className="grid grid-flow-row auto-rows-max text-sm">
