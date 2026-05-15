@@ -36,20 +36,17 @@ export const mobileBriefNotePhrase = [
 export const edges = [
   {
     point: "No-code setup",
-    details:
-      "Deploy with a single script tag, zero technical knowledge needed",
+    details: "Deploy with a single script tag, zero technical knowledge needed",
     icon: ic_code,
   },
   {
     point: "Full brand control",
-    details:
-      "Custom avatar, colors, name, and behavior — all yours",
+    details: "Custom avatar, colors, name, and behavior — all yours",
     icon: ic_palette,
   },
   {
     point: "Full visibility",
-    details:
-      "Monitor every conversation, track leads, measure resolution rate",
+    details: "Monitor every conversation, track leads, measure resolution rate",
     icon: ic_chart_bar,
   },
 ];
