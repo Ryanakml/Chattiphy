@@ -4,6 +4,8 @@ import type { Metadata } from "next";
 import { Providers } from "@/components/providers";
 
 export const metadata: Metadata = {
+  title: "Chattiphy - AI Chatbot for your website",
+  description: "Capture leads, answer questions, and automate your customer support with Chattiphy's AI chatbot.",
   icons: {
     icon: [{ url: "/favicon.svg?v=2", type: "image/svg+xml" }],
     shortcut: [{ url: "/favicon.svg?v=2", type: "image/svg+xml" }],
